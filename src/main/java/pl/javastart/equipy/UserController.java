@@ -19,7 +19,7 @@ class UserController {
 
     @GetMapping
     List<UserDto> findAll(@RequestParam(required = false) String lastName) {
-        if(lastName == null) {
+        if (lastName == null) {
             return userService.findAll();
         } else {
             return userService.findAllByLastName(lastName);
@@ -29,7 +29,7 @@ class UserController {
     @PostMapping
     ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
         //jeśli u userDto podany zostanie id, to wywalamy BAD_REQUEST
-        if(userDto.getId() != null) {
+        if (userDto.getId() != null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Zapisywany obiekt nie może mieć ustawionego id"
@@ -50,6 +50,18 @@ class UserController {
         return userService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto user) {
+        if (!id.equals(user.getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Aktualizowany obiekt musi mieć id zgodne z id w ścieżce zasobu"
+            );
+        }
+        UserDto updatedUser = userService.update(user);
+        return ResponseEntity.ok(updatedUser);
     }
 
 }

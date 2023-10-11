@@ -35,14 +35,27 @@ class UserService {
             throw new DuplicatePeselException();
         });
         //jeśli nie istnieje, zamieniamy dto na encje i zapisujemy za pomocą userRepository.save(user)
-        User user = UserDtoMapper.toUser(userdto);
-        User savedUser = userRepository.save(user);
-        //po zapisie savedUser ma już id i znów go mapujemy na userDto i zwracamy
-        return UserDtoMapper.toUserDto(savedUser);
+        return mapAndSaveUser(userdto);
     }
 
     Optional<UserDto> findById(Long id) {
         return userRepository.findById(id)
                 .map(UserDtoMapper::toUserDto);
+    }
+
+    UserDto update(UserDto userDto) {
+        Optional<User> userByPesel = userRepository.findByPesel(userDto.getPesel());
+        userByPesel.ifPresent(user -> {
+            if(user.getId().equals(userDto.getId())) {
+                throw new DuplicatePeselException();
+            }
+        });
+        return mapAndSaveUser(userDto);
+    }
+
+    private UserDto mapAndSaveUser(UserDto userDto) {
+        User userEntity = UserDtoMapper.toUser(userDto);
+        User savedUser = userRepository.save(userEntity);
+        return UserDtoMapper.toUserDto(savedUser);
     }
 }
