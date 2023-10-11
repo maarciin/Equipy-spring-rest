@@ -1,6 +1,6 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.components.user;
 
-class UserDtoMapper {
+class UserMapper {
     public static UserDto toUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());

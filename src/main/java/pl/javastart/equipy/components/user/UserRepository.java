@@ -1,4 +1,4 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.components.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

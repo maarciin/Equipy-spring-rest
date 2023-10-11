@@ -1,4 +1,4 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.components.user;
 
 import jakarta.persistence.*;
 import lombok.*;

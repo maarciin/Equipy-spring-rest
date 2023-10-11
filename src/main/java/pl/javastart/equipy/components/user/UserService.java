@@ -1,4 +1,4 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.components.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ class UserService {
     List<UserDto> findAll() {
         return userRepository.findAll()
                 .stream()
-                .map(UserDtoMapper::toUserDto)
+                .map(UserMapper::toUserDto)
                 .collect(Collectors.toList());
     }
 
     List<UserDto> findAllByLastName(String lastName) {
         return userRepository.findAllByLastNameContainingIgnoreCase(lastName)
                 .stream()
-                .map(UserDtoMapper::toUserDto)
+                .map(UserMapper::toUserDto)
                 .collect(Collectors.toList());
     }
 
@@ -40,7 +40,7 @@ class UserService {
 
     Optional<UserDto> findById(Long id) {
         return userRepository.findById(id)
-                .map(UserDtoMapper::toUserDto);
+                .map(UserMapper::toUserDto);
     }
 
     UserDto update(UserDto userDto) {
@@ -54,8 +54,8 @@ class UserService {
     }
 
     private UserDto mapAndSaveUser(UserDto userDto) {
-        User userEntity = UserDtoMapper.toUser(userDto);
+        User userEntity = UserMapper.toUser(userDto);
         User savedUser = userRepository.save(userEntity);
-        return UserDtoMapper.toUserDto(savedUser);
+        return UserMapper.toUserDto(savedUser);
     }
 }
