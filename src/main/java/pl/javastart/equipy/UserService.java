@@ -40,4 +40,9 @@ class UserService {
         //po zapisie savedUser ma już id i znów go mapujemy na userDto i zwracamy
         return UserDtoMapper.toUserDto(savedUser);
     }
+
+    Optional<UserDto> findById(Long id) {
+        return userRepository.findById(id)
+                .map(UserDtoMapper::toUserDto);
+    }
 }
