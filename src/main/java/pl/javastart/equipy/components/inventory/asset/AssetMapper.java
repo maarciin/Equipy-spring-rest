@@ -32,7 +32,7 @@ class AssetMapper {
         entity.setSerialNumber(dto.getSerialNumber());
         //mamy assetDto.getCategory - co jest nazwą kategorii
         //musimy zatem odnaleźć kategorie po nazwie
-        Optional<Category> categoryByName = categoryRepository.findByName(dto.getName());
+        Optional<Category> categoryByName = categoryRepository.findByName(dto.getCategory());
         //jeśli istnieje to ustawiamy ją do encji
         categoryByName.ifPresent(entity::setCategory);
         return entity;
