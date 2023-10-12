@@ -27,3 +27,10 @@ values
      ('Apple iPhone 8', 'Telefon z zestawem słuchawkowym lightning i ładowarką', 'APL8185652HGT7', 2),
      ('Opel Insignia GSi', 'Samochód osobowy, 6 biegowa automatyczna skrzynia biegów, benzynowy silnik 2.0', 'XHG78K64', 3),
      ('Ford Focus', 'Samochód osobowy, 5 biegowa manualna skrzynia biegów, silnik diesel 1.6', 'M24HP88GYJ', 3);
+
+insert into
+    assignment(start, end, asset_id, user_id)
+values
+      ('2017-10-08 15:00:00', '2018-10-08 15:00:00', 1, 1),
+      ('2018-10-09 12:00:00', null, 5, 1),
+      ('2018-10-10 16:00:00', null, 9, 1);
