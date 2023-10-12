@@ -36,4 +36,9 @@ class AssetService {
         Asset savedAsset = assetRepository.save(entityToSave);
         return assetMapper.toDto(savedAsset);
     }
+
+    Optional<AssetDto> findAssetById(Long id) {
+        return assetRepository.findById(id)
+                .map(assetMapper::toDto);
+    }
 }

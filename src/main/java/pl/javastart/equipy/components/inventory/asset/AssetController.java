@@ -41,4 +41,11 @@ class AssetController {
         return ResponseEntity.created(location).build();
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<AssetDto> getAssetById(@PathVariable Long id) {
+        return assetService.findAssetById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
