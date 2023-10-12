@@ -18,4 +18,11 @@ class AssetService {
                 .map(assetMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    List<AssetDto> findAssetsByNameOrSerialNumber(String text) {
+        return assetRepository.findAssetsByNameOrSerialNumber(text).
+                stream()
+                .map(assetMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }
