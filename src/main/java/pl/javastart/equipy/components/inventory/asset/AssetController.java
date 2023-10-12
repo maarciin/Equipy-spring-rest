@@ -60,4 +60,9 @@ class AssetController {
         return ResponseEntity.ok(updatedAsset);
     }
 
+    @GetMapping("/{id}/assignments")
+    List<AssetAssignmentDto> getAssetAssignments(@PathVariable Long id) {
+        return assetService.getAssetAssignments(id);
+    }
+
 }

@@ -2,7 +2,11 @@ package pl.javastart.equipy.components.inventory.asset;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.javastart.equipy.components.assignment.Assignment;
 import pl.javastart.equipy.components.inventory.category.Category;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -21,6 +25,9 @@ public class Asset {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "asset")
+    private List<Assignment> assignments = new ArrayList<>();
 
 
 }
