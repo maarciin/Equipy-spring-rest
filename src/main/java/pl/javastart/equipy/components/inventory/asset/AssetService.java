@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,5 +25,15 @@ class AssetService {
                 stream()
                 .map(assetMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    AssetDto save(AssetDto assetDto) {
+        Optional<Asset> assetById = assetRepository.findBySerialNumber(assetDto.getSerialNumber());
+        assetById.ifPresent(a-> {
+            throw new DuplicateSerialNumberException();
+        });
+        Asset entityToSave = assetMapper.toEntity(assetDto);
+        Asset savedAsset = assetRepository.save(entityToSave);
+        return assetMapper.toDto(savedAsset);
     }
 }
