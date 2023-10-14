@@ -3,14 +3,12 @@ package pl.javastart.equipy.components.assignment;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @RestController
@@ -33,5 +31,11 @@ class AssignmentController {
                 .buildAndExpand(savedAssignment.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/{id}/end")
+    ResponseEntity<?> endAssignment(@PathVariable Long id) {
+        LocalDateTime endDate = assignmentService.endAssignment(id);
+        return ResponseEntity.accepted().body(endDate);
     }
 }

@@ -1,5 +1,6 @@
 package pl.javastart.equipy.components.assignment;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.javastart.equipy.components.inventory.asset.Asset;
@@ -39,5 +40,18 @@ class AssignmentService {
         assignment.setStart(LocalDateTime.now());
         Assignment savedAssignment = assignmentRepository.save(assignment);
         return AssignmentMapper.toDto(savedAssignment);
+    }
+
+
+    @Transactional
+    public LocalDateTime endAssignment(Long assignmentId) {
+        Optional<Assignment> assignment = assignmentRepository.findById(assignmentId);
+        Assignment assignmentEntity = assignment.orElseThrow(AssignmentNotFoundException::new);
+        if(assignmentEntity.getEnd() != null) {
+            throw new AssignmentAlreadyFinishedException();
+        } else {
+            assignmentEntity.setEnd(LocalDateTime.now());
+        }
+        return assignmentEntity.getEnd();
     }
 }
